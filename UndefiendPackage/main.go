@@ -4,12 +4,13 @@ import (
 	"image"
 	"image/color"
 	"log"
-    "github.com/disintegration/imaging"
+
+	"github.com/disintegration/imaging"
 )
 
 func main() {
 	// Open a test image.
-	src, err := imaging.Open("1.png")
+	src, err := imaging.Open("1.jpg")
 	if err != nil {
 		log.Fatalf("failed to open image: %v", err)
 	}

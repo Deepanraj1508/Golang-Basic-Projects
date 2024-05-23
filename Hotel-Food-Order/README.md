@@ -8,7 +8,6 @@ I have written a program using which you can order food in a restaurant.
 
 # Prerequisite
 You should have basic knowledge of Go language like data types, if-else statement, loops, switch-statement, slices, maps and structures.
-If you don't know anything about Go language, then do checkout the [resoruces section](https://github.com/BhairaviSanskriti/Order-Food/edit/main/README.md#resources) and you'll be good to go.
 
 # Resources 
 1. [Go Beginner Project Tutorial - Learn Golang](https://www.youtube.com/watch?v=LHhsNa_Kgns)
@@ -47,7 +46,7 @@ There are several things that I learnt while building this project. I am sharing
         
         //To append use the below code: 
       
-        a = append(a, NewStruct{itemName: name, price: bill, quantity: noOfPlates}
+        a = append(a, NewStruct{itemName: name, price: bill, quantity: noOfPlates})
         
  2. __What happens when you loop through an string, slice, map?__
   
