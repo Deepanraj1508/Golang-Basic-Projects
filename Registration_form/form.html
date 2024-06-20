@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Registration</title>
+</head>
+<body>
+    <h1>Employee Registration Form</h1>
+    <form id="employeeForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone:</label><br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <h2>Registered Employees</h2>
+    <table border="1" id="employeesTable">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </table>
+
+    <script>
+        document.getElementById("employeeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = {
+                name: form.name.value,
+                age: parseInt(form.age.value),
+                email: form.email.value,
+                phone: form.phone.value
+            };
+
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.status === 201) {
+                    
+                    form.reset();
+                    loadEmployees();
+                } else {
+                    alert("Failed to register employee.");
+                }
+            })
+            .catch(error => {
+                alert("Error: " + error.message);
+            });
+        });
+
+        function loadEmployees() {
+            fetch("/employees")
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById("employeesTable");
+                    table.innerHTML = `
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    `;
+                    data.forEach(emp => {
+                        const row = table.insertRow();
+                        row.insertCell(0).innerText = emp.name;
+                        row.insertCell(1).innerText = emp.age;
+                        row.insertCell(2).innerText = emp.email;
+                        row.insertCell(3).innerText = emp.phone;
+                    });
+                });
+        }
+
+        // Load employees on page load
+        loadEmployees();
+    </script>
+</body>
+</html>
